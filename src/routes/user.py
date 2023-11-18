@@ -1,8 +1,7 @@
 from typing import List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from src.schemas.user import User
-from src.services.user_service import UserService
 from src.depends import get_user_service
 
 router = APIRouter(prefix='/user', tags=['user'])

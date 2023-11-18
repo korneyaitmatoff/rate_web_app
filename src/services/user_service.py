@@ -1,6 +1,5 @@
 from typing import List
 from src.schemas.user import User
-from src.repositories.user_repository import UserRepository
 
 
 class UserService:
