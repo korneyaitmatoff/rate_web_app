@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
 
-class PostgresqlHandler:
+class DatabaseHandler:
     def __init__(self):
         self.url = f"postgresql://tavern:tavern@45.9.43.40:5432/app"
         self.engine = create_engine(url=self.url)
@@ -30,4 +30,19 @@ class PostgresqlHandler:
         self.session.close()
 
     def test_connection(self):
+        self.create_session()
         self.session.execute(text("SELECT 1;"))
+        self.close_session()
+
+    def select(self, table, filters: tuple, limit: int = 1000) -> list:
+        """Получение данных из таблицы"""
+        return self.session.query(table).filter(*filters).limit(limit).all()
+
+    def insert(self, table, data: dict):
+        """Добавление записи"""
+
+        self.session.add(record := table(**data))
+        self.session.commit()
+        self.session.refresh(record)
+
+        return record

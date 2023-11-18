@@ -6,6 +6,8 @@ def create_server() -> Server:
     server = Server()
 
     server.register_routes(router=test_router)
-    server.register_db_connection()
 
     return server
+
+
+server = create_server()
