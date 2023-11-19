@@ -12,8 +12,14 @@ class Repository(ABC):
     db_engine: DatabaseHandler
     table: Type[DeclarativeMeta]
 
-    def __init__(self):
+    def __init__(self, table: Type[DeclarativeMeta]):
+        """Инит экземпляра класса
+
+        Args:
+            table: таблица сущности
+        """
         self.db_engine = server.db
+        self.table = table
 
     @abstractmethod
     def create(self, data: dict):

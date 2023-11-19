@@ -5,7 +5,7 @@ from sqlalchemy.orm import DeclarativeMeta
 from src.repositories.repository import Repository
 
 
-class UserRepository(Repository):
+class SiteRepository(Repository):
     table: Type[DeclarativeMeta]
 
     def __init__(self, table: Type[DeclarativeMeta]):
