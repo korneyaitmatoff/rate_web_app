@@ -30,21 +30,12 @@ class Repository(ABC):
         return self.db_engine.insert(table=self.table, data=data)
 
     @abstractmethod
-    def read(self, id: int):
-        """Чтение из таблицы по id
+    def read(self, filters: tuple = (), limit: int = 100):
+        """Чтение из таблицы
 
         Args:
-            id: Идентификатор
-        """
-        return self.db_engine.select(table=self.table, filters=(self.table.id == id))
-
-    @abstractmethod
-    def read_all(self, filters: tuple, limit=100):
-        """Массовое чтение данных по фильтру
-
-        Args:
-            filters: фильтр
-            limit: ограничение записей
+            filters: фильтр для выборки данных
+            limit: ограничение по кол-ву записей
         """
         return self.db_engine.select(table=self.table, filters=filters, limit=limit)
 
@@ -52,4 +43,10 @@ class Repository(ABC):
     def update(self, id: int, data: dict): ...
 
     @abstractmethod
-    def delete(self, id: int): ...
+    def delete(self, filters: tuple):
+        """Удаление данных
+
+        Args:
+            filters: фильтр для выборки данных
+        """
+        self.db_engine.delete(table=self.table, filters=filters)
