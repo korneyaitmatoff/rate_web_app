@@ -20,11 +20,12 @@ class Service(ABC):
         return self.repository.create(data=data)
 
     @abstractmethod
-    def read(self, filters: tuple = (), limit: int = 100):
+    def read(self, id: int):
         """Чтение записи по id из бд"""
-        return self.repository.read(filters=filters, limit=limit)
+        return self.repository.read(filters=(
+            self.repository.table.id == id,
+        ))
 
-    @abstractmethod
     def update(self, id: int, data: dict): ...
 
     @abstractmethod
