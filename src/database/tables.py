@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, VARCHAR, TIMESTAMP
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, VARCHAR, TIMESTAMP, Integer
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -10,7 +9,7 @@ Base = declarative_base()
 class Site(Base):
     __tablename__ = 'sites'
 
-    id = Column(UUID, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(VARCHAR)
     description = Column(VARCHAR, default=None)
     url = Column(VARCHAR)
@@ -20,7 +19,7 @@ class Site(Base):
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column(UUID, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(VARCHAR)
     login = Column(VARCHAR)
     password = Column(VARCHAR)

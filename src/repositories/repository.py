@@ -4,7 +4,6 @@ from typing import Type
 from sqlalchemy.orm import DeclarativeMeta
 
 from src.database.handler import DatabaseHandler
-from src import server
 
 
 class Repository(ABC):
@@ -12,16 +11,15 @@ class Repository(ABC):
     db_engine: DatabaseHandler
     table: Type[DeclarativeMeta]
 
-    def __init__(self, table: Type[DeclarativeMeta]):
+    def __init__(self, table: Type[DeclarativeMeta], database_handler):
         """Инит экземпляра класса
 
         Args:
             table: таблица сущности
         """
-        self.db_engine = server.db
+        self.db_engine = database_handler
         self.table = table
 
-    @abstractmethod
     def create(self, data: dict):
         """Создание объекта
 
@@ -29,7 +27,6 @@ class Repository(ABC):
         """
         return self.db_engine.insert(table=self.table, data=data)
 
-    @abstractmethod
     def read(self, filters: tuple = (), limit: int = 100):
         """Чтение из таблицы
 
@@ -39,10 +36,16 @@ class Repository(ABC):
         """
         return self.db_engine.select(table=self.table, filters=filters, limit=limit)
 
-    @abstractmethod
-    def update(self, id: int, data: dict): ...
+    def update(self, id: int, data: dict):
+        """Изменение объекта
 
-    @abstractmethod
+        Args:
+            id: id объекта
+            data: новые данные объекта
+        """
+
+        self.db_engine.update(table=self.table, filters=(self.table.id == id,), data=data)
+
     def delete(self, filters: tuple):
         """Удаление данных
 

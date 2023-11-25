@@ -63,5 +63,9 @@ class DatabaseHandler:
     def delete(self, table, filters: tuple):
         """Удаление записи"""
 
-        self.session.query(table).filters(filters).delete()
+        self.session.query(table).filter(*filters).delete()
+        self.session.commit()
+
+    def update(self, table, filters: tuple, data: dict):
+        self.session.query(table).filter(*filters).update(data)
         self.session.commit()

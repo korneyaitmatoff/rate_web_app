@@ -1,19 +1,25 @@
 from typing import List
 
 from fastapi import APIRouter
+
 from src.schemas.user import User
-from src import user_service
-
-router = APIRouter(prefix='/user', tags=['user'])
+from src.services.service import Service
 
 
-@router.get("/{id}", responses={400: {"description": "Bad request"}}, response_model=List[User],
-            description="Получение пользователя")
-def get(id):
-    return user_service().read(id=id)
+class UserRouter:
+    router: APIRouter
 
+    def __init__(self, service: Service, routes: list[dict]):
+        self.service = service
+        self.router = APIRouter(prefix='/user', tags=['user'])
 
-@router.post("", responses={400: {"description": "Bad request"}}, response_model=User,
-             description="Создание пользователя")
-def create(user: User):
-    print(user)
+        self.register_routes(routes)
+
+    def register_routes(self, routes):
+        """Регистрация роутов"""
+        for route in routes:
+            self.router.add_api_route(**route)
+
+    def get_router(self):
+        """Геттер роута"""
+        return self.router

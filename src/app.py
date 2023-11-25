@@ -4,18 +4,21 @@ from fastapi import APIRouter
 from src.database.handler import DatabaseHandler
 
 
-class Server:
+class App:
     """Класс для управления сервером"""
     db_handler: DatabaseHandler
+    server: FastAPI
 
-    def __init__(self):
-        self.app = FastAPI()
+    def __init__(self, server: FastAPI):
+        self.server = server
         self.db_handler = DatabaseHandler()
+
         self.test_db_connection()
 
-    def register_routes(self, router: APIRouter):
+    def register_routes(self, routes: list[APIRouter]):
         """Метод для регистрации роутов"""
-        self.app.include_router(router)
+        for router in routes:
+            self.server.include_router(router)
 
     def test_db_connection(self):
         """Регистрация и проверка соединения"""
@@ -23,4 +26,4 @@ class Server:
 
     def get_app(self):
         """Получить объект приложени"""
-        return self.app
+        return self.server

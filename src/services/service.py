@@ -14,20 +14,15 @@ class Service(ABC):
         """
         self.repository = repository
 
-    @abstractmethod
     def create(self, data: dict):
         """Саздание записи в бд"""
         return self.repository.create(data=data)
 
-    @abstractmethod
-    def read(self, id: int):
+    def read(self, filters: tuple = (), limit: int = 100):
         """Чтение записи по id из бд"""
-        return self.repository.read(filters=(
-            self.repository.table.id == id,
-        ))
+        return self.repository.read(filters=filters, limit=limit)
 
     def update(self, id: int, data: dict): ...
 
-    @abstractmethod
     def delete(self, filters: tuple):
         return self.repository.delete(filters=filters)
