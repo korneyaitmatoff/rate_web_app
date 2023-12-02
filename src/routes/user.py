@@ -2,7 +2,6 @@ from typing import List
 
 from fastapi import APIRouter
 
-from src.schemas.user import User
 from src.services.service import Service
 
 

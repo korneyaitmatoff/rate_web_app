@@ -1,4 +1,5 @@
 from src.services.service import Service
+from src.schemas.site import Site
 from src.repositories.repository import Repository
 
 
@@ -7,3 +8,20 @@ class SiteService(Service):
 
     def __init__(self, repository: Repository):
         super().__init__(repository=repository)
+
+    def get_sites(self):
+        return self.read()
+
+    def get_site_by_id(self, site_id: int) -> Site:
+        return self.read(filters=(self.repository.table.id == site_id,))[0]
+
+    def edit_site(self, site_id: int, site: Site):
+        self.repository.update(id=site_id, data=dict(site))
+        return site_id
+
+    def create_site(self, site: Site):
+        self.create(dict(site))
+        return site
+
+    def delete_site(self, site_id: int):
+        self.delete(filters=(self.repository.table.id == site_id,))
