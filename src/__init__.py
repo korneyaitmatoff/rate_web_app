@@ -66,9 +66,9 @@ app.register_routes([
             {
                 "path": "",
                 "responses": {400: {"description": "Bad request"}},
-                "response_model": List[User],
-                "description": "Получение списка пользователей", "methods": ['GET'],
-                "endpoint": user_service.get_users
+                "response_model": List[Site],
+                "description": "Получение списка сайтов", "methods": ['GET'],
+                "endpoint": site_service.get_sites
             },
             {
                 "path": "/{site_id}",
