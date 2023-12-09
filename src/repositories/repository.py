@@ -44,7 +44,7 @@ class Repository(ABC):
             data: новые данные объекта
         """
 
-        self.db_engine.update(table=self.table, filters=(self.table.id == id,), data=data)
+        return self.db_engine.update(table=self.table, filters=(self.table.id == id,), data=data)
 
     def delete(self, filters: tuple):
         """Удаление данных

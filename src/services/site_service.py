@@ -1,5 +1,5 @@
 from src.services.service import Service
-from src.schemas.site import Site
+from src.schemas.site import SiteDict, Site
 from src.repositories.repository import Repository
 
 
@@ -15,13 +15,13 @@ class SiteService(Service):
     def get_site_by_id(self, site_id: int) -> Site:
         return self.read(filters=(self.repository.table.id == site_id,))[0]
 
-    def edit_site(self, site_id: int, site: Site):
+    def edit_site(self, site_id: int, site: SiteDict):
         self.repository.update(id=site_id, data=dict(site))
+
         return site_id
 
-    def create_site(self, site: Site):
-        self.create(dict(site))
-        return site
+    def create_site(self, site: SiteDict) -> Site:
+        return self.create(site)
 
     def delete_site(self, site_id: int):
         self.delete(filters=(self.repository.table.id == site_id,))
