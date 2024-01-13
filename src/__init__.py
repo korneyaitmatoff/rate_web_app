@@ -58,6 +58,13 @@ app.register_routes([
                 "description": "Изменение данных пользователя", "methods": ['PATCH'],
                 "endpoint": user_service.edit_user
             },
+            {
+                "path": "/auth",
+                "responses": {400: {"description": "Bad request"}},
+                "response_model": bool,
+                "description": "Верификация данных аутентификации", "methods": ['POST'],
+                "endpoint": user_service.auth
+            },
         ]
     ).get_router(),
     SiteRouter(

@@ -1,6 +1,6 @@
 from src.services.service import Service
 from src.repositories.repository import Repository
-from src.schemas.user import User
+from src.schemas.user import User, AuthUser
 
 
 class UserService(Service):
@@ -25,3 +25,11 @@ class UserService(Service):
 
     def delete_user(self, user_id: int):
         self.delete(filters=(self.repository.table.id == user_id,))
+
+    def auth(self, user: AuthUser) -> bool:
+        return True if self.read(
+            filters=(
+                self.repository.table.login == user.login,
+                self.repository.table.password == user.password,
+            )
+        ) else False

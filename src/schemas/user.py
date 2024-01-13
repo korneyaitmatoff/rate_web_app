@@ -6,3 +6,9 @@ class User(BaseModel):
     name: str
     login: str
     password: str
+
+
+class AuthUser(BaseModel):
+    """Модель пользователя для авторизации"""
+    login: str
+    password: str
