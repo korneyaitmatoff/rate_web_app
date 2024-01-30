@@ -20,8 +20,7 @@ class UserService(Service):
         return user
 
     def create_user(self, user: UserInput):
-        self.create(dict(user))
-        return user
+        return self.create(dict(user))
 
     def delete_user(self, user_id: int):
         self.delete(filters=(self.repository.table.id == user_id,))
