@@ -46,10 +46,15 @@ class DatabaseHandler:
         self.session.execute(text("SELECT 1;"))
         self.close_session()
 
-    def select(self, table, filters: tuple, limit: int = 1000) -> list:
+    def select(self, table, filters: tuple, limit: int = 1000, offset: int = None) -> list:
         """Получение данных из таблицы"""
 
-        return self.session.query(table).filter(*filters).limit(limit).all()
+        query = self.session.query(table).filter(*filters).limit(limit)
+
+        if offset:
+            query = query.offset(offset)
+
+        return query.all()
 
     def insert(self, table, data: dict):
         """Добавление записи"""

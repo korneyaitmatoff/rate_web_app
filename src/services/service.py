@@ -18,9 +18,9 @@ class Service(ABC):
         """Саздание записи в бд"""
         return self.repository.create(data=data)
 
-    def read(self, filters: tuple = (), limit: int = 100):
+    def read(self, filters: tuple = (), limit: int = 10000, offset: int = 0):
         """Чтение записи по id из бд"""
-        return self.repository.read(filters=filters, limit=limit)
+        return self.repository.read(filters=filters, limit=limit, offset=offset)
 
     def update(self, id: int, data: dict): ...
 

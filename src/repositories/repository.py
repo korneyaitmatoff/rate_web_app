@@ -27,14 +27,15 @@ class Repository(ABC):
         """
         return self.db_engine.insert(table=self.table, data=data)
 
-    def read(self, filters: tuple = (), limit: int = 100):
+    def read(self, filters: tuple = (), limit: int = 100, offset: int = 0):
         """Чтение из таблицы
 
         Args:
             filters: фильтр для выборки данных
             limit: ограничение по кол-ву записей
+            offset: отступ
         """
-        return self.db_engine.select(table=self.table, filters=filters, limit=limit)
+        return self.db_engine.select(table=self.table, filters=filters, limit=limit, offset=offset)
 
     def update(self, id: int, data: dict):
         """Изменение объекта

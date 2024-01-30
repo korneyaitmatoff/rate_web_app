@@ -9,8 +9,8 @@ class SiteService(Service):
     def __init__(self, repository: Repository):
         super().__init__(repository=repository)
 
-    def get_sites(self):
-        return self.read()
+    def get_sites(self, limit: int = 10000, offset: int = 0):
+        return self.read(limit=limit, offset=offset)
 
     def get_site_by_id(self, site_id: int) -> Site:
         return self.read(filters=(self.repository.table.id == site_id,))[0]
