@@ -104,6 +104,13 @@ app.register_routes([
                 "description": "Изменение данных сайта", "methods": ['PATCH'],
                 "endpoint": site_service.edit_site
             },
+{
+                "path": "/user/{user_id}",
+                "responses": {400: {"description": "Bad request"}},
+                "response_model": list[Site],
+                "description": "Получение списка сайтов по id пользователя", "methods": ['GET'],
+                "endpoint": site_service.get_sites_by_user_id
+            },
         ]
     ).get_router(),
 ])

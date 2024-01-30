@@ -1,6 +1,6 @@
 from src.services.service import Service
 from src.repositories.repository import Repository
-from src.schemas.user import User, AuthUser
+from src.schemas.user import User, AuthUser, UserInput
 
 
 class UserService(Service):
@@ -19,7 +19,7 @@ class UserService(Service):
         self.repository.update(id=user_id, data=dict(user))
         return user
 
-    def create_user(self, user: User):
+    def create_user(self, user: UserInput):
         self.create(dict(user))
         return user
 

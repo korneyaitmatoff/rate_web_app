@@ -10,6 +10,7 @@ class Site(BaseModel):
     name: str
     description: Optional[str]
     url: str
+    user_id: int
 
 
 class SiteDict(TypedDict):
@@ -17,3 +18,4 @@ class SiteDict(TypedDict):
     name: str
     description: Optional[str]
     url: str
+    user_id: int
