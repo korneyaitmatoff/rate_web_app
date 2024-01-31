@@ -25,10 +25,11 @@ class UserService(Service):
     def delete_user(self, user_id: int):
         self.delete(filters=(self.repository.table.id == user_id,))
 
-    def auth(self, user: AuthUser) -> bool:
-        return True if self.read(
+    def auth(self, user: AuthUser):
+        data = self.read(
             filters=(
                 self.repository.table.login == user.login,
                 self.repository.table.password == user.password,
             )
-        ) else False
+        )
+        return data[0].id if data else -1

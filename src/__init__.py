@@ -61,7 +61,7 @@ app.register_routes([
             {
                 "path": "/auth",
                 "responses": {400: {"description": "Bad request"}},
-                "response_model": bool,
+                "response_model": int,
                 "description": "Верификация данных аутентификации", "methods": ['POST'],
                 "endpoint": user_service.auth
             },
