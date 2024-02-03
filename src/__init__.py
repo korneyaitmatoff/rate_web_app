@@ -116,7 +116,12 @@ app.register_routes([
                 "description": "Получение списка сайтов по id пользователя", "methods": ['GET'],
                 "endpoint": site_service.get_sites_by_user_id
             },
-
+            {
+                "path": "/data/{site_id}",
+                "responses": {400: {"description": "Bad request"}},
+                "description": "Всех данных сайта", "methods": ['GET'],
+                "endpoint": site_service.get_site_data
+            },
         ]
     ).get_router(),
     CommentRouter(

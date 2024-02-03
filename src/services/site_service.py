@@ -1,6 +1,7 @@
 from src.services.service import Service
 from src.schemas.site import SiteDict, Site
 from src.repositories.repository import Repository
+from api.user_api import UserApi
 
 
 class SiteService(Service):
@@ -28,3 +29,18 @@ class SiteService(Service):
 
     def delete_site(self, site_id: int):
         self.delete(filters=(self.repository.table.id == site_id,))
+
+    def get_site_data(self, site_id: int):
+        """Получение всех данных сайта
+
+        Args:
+            site_id: идентификатор сайта
+        """
+        data = self.get_site_by_id(site_id=site_id)
+
+        user = UserApi().get_user_by_id(id=data.user_id)
+
+        return {
+            "user": user,
+            "data": data
+        }
